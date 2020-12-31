@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form id="form">
+            <label for="name">Librarian Name:</label>
+            <input type="text" name="name" id="name"  required>
+            <label for="number">Librarian Phone:</label>
+            <input type="tel" name="number" id="number" onchange="validate()" required>
+            <button onclick="onSubmit()" id="submitButton" disabled>Submit</button>
+        </form>
+    </div>
+
+
+    <script>
+        function onSubmit(){
+            const name = document.getElementById("name").value;
+            const number = document.getElementById("number").value;
+
+            const librarian = {name: name, number: number};
+            console.log(librarian)
+            fetch('http://localhost:4000/save_librarian',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(librarian) // body data type must match "Content-Type" header
+      })
+
+        }
+
+        function validate() {
+var mobile = document.getElementById("number").value;
+var pattern =  /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
+if (pattern.test(mobile)) {
+// alert("Your mobile number : "+mobile);
+document.getElementById("submitButton").disabled = false;
+return true;
+}
+alert("It is not valid mobile number");
+return false;
+ 
+}
+    </script>
+</body>
+</html>

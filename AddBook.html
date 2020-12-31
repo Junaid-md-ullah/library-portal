@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form>
+            <label for="bookName">Book Name:</label>
+            <input type="text" name="bookName" id="bookName">
+            <label for="author">Author Name:</label>
+            <input type="text" name="author" id="author">
+            <label for="price">Book Price:</label>
+            <input type="text" name="price" id="price">
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date">
+            <button onclick="onSubmit()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function onSubmit(){
+            const bookName = document.getElementById("bookName").value;
+            const author = document.getElementById("author").value;
+            const price = document.getElementById("price").value;
+            const date = document.getElementById("date").value;
+
+            const book = {bookName: bookName ,author: author, price:price,date: date};
+            console.log(book)
+            fetch('http://localhost:4000/save_books',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(book) // body data type must match "Content-Type" header
+      })
+
+        }
+    </script>
+</body>
+</html>
